@@ -9,8 +9,7 @@ def test_validate_json_cmarker_schema() -> None:
     reader: Reader = Reader()
     json_dict = reader.get_dict_from_file(base_path + cmarker_json_path)
     validator = ValidatorFactory.create_cmarker_validator()
-    validator.validate(json_dict)
-    assert len(validator.errors) == 1
+    assert validator.validate(json_dict)
 
 
 def test_validate_json_label_selected_schema() -> None:
@@ -18,8 +17,7 @@ def test_validate_json_label_selected_schema() -> None:
     reader: Reader = Reader()
     json_dict = reader.get_dict_from_file(base_path + label_json_path)
     validator = ValidatorFactory.create_label_validator()
-    validator.validate(json_dict)
-    assert len(validator.errors) == 2
+    assert validator.validate(json_dict) is False
 
 
 def test_validate_json_sleep_created_schema() -> None:
@@ -27,8 +25,7 @@ def test_validate_json_sleep_created_schema() -> None:
     reader: Reader = Reader()
     json_dict = reader.get_dict_from_file(base_path + sleep_json_path)
     validator = ValidatorFactory.create_sleep_validator()
-    validator.validate(json_dict)
-    assert len(validator.errors) == 3
+    assert validator.validate(json_dict)
 
 
 def test_validate_json_workout_created() -> None:

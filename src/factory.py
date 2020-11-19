@@ -1,4 +1,7 @@
-from .validators import CMarkerCreatedValidator, LabelSelectedValidator, SleepCreatedValidator, WorkoutCreatedValidator
+from typing import List
+
+from .validators import CMarkerCreatedValidator, LabelSelectedValidator, SleepCreatedValidator, WorkoutCreatedValidator, \
+    Validator
 
 
 class BaseFactory(object):
@@ -28,3 +31,12 @@ class ValidatorFactory(BaseFactory):
     @staticmethod
     def create_workout_validator(path: str = None) -> WorkoutCreatedValidator:
         return WorkoutCreatedValidator(path)
+
+    @staticmethod
+    def create_all_validators(path: str = None) -> List[Validator]:
+        return [
+            ValidatorFactory.create_cmarker_validator(path),
+            ValidatorFactory.create_label_validator(path),
+            ValidatorFactory.create_sleep_validator(path),
+            ValidatorFactory.create_workout_validator(path),
+        ]

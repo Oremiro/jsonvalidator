@@ -1,16 +1,24 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from src.factory import ValidatorFactory
+from src.reader import Reader
+from os import listdir
 
 
-# Press the green button in the gutter to run the script.
+def validate_json(path: str):
+    reader: Reader = Reader()
+    json_dict: dict = reader.get_dict_from_file(path)
+    print(path)
+    for validator in ValidatorFactory.create_all_validators():
+        if validator.validate(json_dict):
+            print("Valid")
+        else:
+            print("Invalid")
+    return
+
+def main():
+    base_path: str = "./tests/test_data/event/"
+    for file in listdir(base_path):
+        validate_json(base_path + file)
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
