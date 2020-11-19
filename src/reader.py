@@ -7,9 +7,6 @@ class BaseReader(object):
 
 
 class Reader(BaseReader):
-    # region private
-
-    # endregion
 
     # region public
     def get_str_from_file(self, path: str) -> str:
