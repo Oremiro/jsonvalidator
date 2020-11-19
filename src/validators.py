@@ -14,16 +14,14 @@ class Validator(object):
 
     def validate(self, json_data: dict) -> bool:
         validator = Draft7Validator(self.schema)
-        validator.is_valid(json_data)
-        # pp(f"scheme: {validator.schema}")
-        # pp(f"input json: {json_data}")
-        for error in sorted(validator.iter_errors(json_data), key=str):
-            pp(error.message)
         return validator.is_valid(json_data)
 
-
-def report(self):
-    pass
+    def get_errors(self, json_data: dict) -> List[str]:
+        errors: List[str] = []
+        validator = Draft7Validator(self.schema)
+        for error in sorted(validator.iter_errors(json_data), key=str):
+            errors.append(error.message)
+        return errors
 
 
 class CMarkerCreatedValidator(Validator, CMarkerCreatedSchemaMixin):
